@@ -193,3 +193,73 @@ document.addEventListener('click', function (e) {
         card.remove(); // Usunięcie karty
     }
 });
+ocument.addEventListener('DOMContentLoaded', function() {
+    const suspectList = document.getElementById('suspectList');
+    const addSuspectForm = document.getElementById('addSuspectForm');
+
+    // Załaduj dane z Local Storage
+    loadSuspects();
+
+    // Funkcja dodająca nowego podejrzanego
+    addSuspectForm.addEventListener('submit', function(e) {
+        e.preventDefault(); // Zapobiega przeładowaniu strony
+
+        // Pobieranie wartości z formularza
+        const suspectName = document.getElementById('suspectName').value;
+        const suspectImage = document.getElementById('suspectImage').value;
+        const suspectDescription = document.getElementById('suspectDescription').value;
+
+        // Tworzenie obiektu podejrzanego
+        const suspect = {
+            name: suspectName,
+            image: suspectImage,
+            description: suspectDescription
+        };
+
+        // Dodanie podejrzanego do Local Storage
+        saveSuspect(suspect);
+
+        // Resetuj formularz
+        addSuspectForm.reset();
+    });
+
+    // Funkcja do załadowania podejrzanych z Local Storage
+    function loadSuspects() {
+        const suspects = JSON.parse(localStorage.getItem('suspects')) || [];
+        suspects.forEach(suspect => addSuspectCard(suspect));
+    }
+
+    // Funkcja do zapisywania podejrzanego w Local Storage
+    function saveSuspect(suspect) {
+        const suspects = JSON.parse(localStorage.getItem('suspects')) || [];
+        suspects.push(suspect);
+        localStorage.setItem('suspects', JSON.stringify(suspects));
+        addSuspectCard(suspect);
+    }
+
+    // Funkcja do dodawania karty podejrzanego
+    function addSuspectCard(suspect) {
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.innerHTML = `
+            <img src="${suspect.image}" alt="${suspect.name}">
+            <h3>${suspect.name}</h3>
+            <p>${suspect.description}</p>
+            <button class="delete-button">Usuń</button>
+        `;
+        suspectList.appendChild(card);
+
+        // Funkcjonalność usuwania podejrzanego
+        card.querySelector('.delete-button').addEventListener('click', function() {
+            removeSuspect(suspect);
+            card.remove();
+        });
+    }
+
+    // Funkcja do usuwania podejrzanego z Local Storage
+    function removeSuspect(suspectToRemove) {
+        let suspects = JSON.parse(localStorage.getItem('suspects')) || [];
+        suspects = suspects.filter(suspect => suspect.name !== suspectToRemove.name);
+        localStorage.setItem('suspects', JSON.stringify(suspects));
+    }
+});
