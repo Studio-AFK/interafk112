@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podejrzani - Interpol</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="scripts.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">INTERPOL</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Strona Główna</a></li>
+                <li><a href="przestepcy.html">Przestępcy</a></li>
+                <li><a href="dowody.html">Dowody</a></li>
+                <li><a href="odciski.html">Odciski Palców</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="section">
+            <h2>Podejrzani</h2>
+
+            <!-- Wyszukiwarka -->
+            <div class="search-bar">
+                <input type="text" id="search" placeholder="Wyszukaj podejrzanego..." onkeyup="searchFunction()">
+            </div>
+
+            <!-- Formularz dodawania nowego podejrzanego -->
+            <h3>Dodaj nowego podejrzanego</h3>
+            <form id="addSuspectForm" class="form-container">
+                <div class="form-group">
+                    <label for="suspectName">Imię i nazwisko:</label>
+                    <input type="text" id="suspectName" placeholder="Wpisz imię i nazwisko" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="suspectDescription">Opis:</label>
+                    <textarea id="suspectDescription" placeholder="Wpisz opis" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="suspectImage">Link do zdjęcia:</label>
+                    <input type="url" id="suspectImage" placeholder="Wklej URL do zdjęcia" required>
+                </div>
+
+                <button type="submit" class="btn">Dodaj podejrzanego</button>
+            </form>
+
+            <!-- Formularz edytowania podejrzanego -->
+            <h3>Edytuj podejrzanego</h3>
+            <form id="editSuspectForm" class="form-container" style="display: none;">
+                <div class="form-group">
+                    <label for="editSuspectName">Imię i nazwisko:</label>
+                    <input type="text" id="editSuspectName" placeholder="Edytuj imię i nazwisko" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="editSuspectDescription">Opis:</label>
+                    <textarea id="editSuspectDescription" placeholder="Edytuj opis" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="editSuspectImage">Link do zdjęcia:</label>
+                    <input type="url" id="editSuspectImage" placeholder="Edytuj URL do zdjęcia" required>
+                </div>
+
+                <button type="submit" class="btn">Zaktualizuj podejrzanego</button>
+                <button type="button" class="btn" onclick="cancelEdit()">Anuluj</button>
+            </form>
+
+            <!-- Lista podejrzanych -->
+            <div class="grid" id="suspectList">
+                <div class="card">
+                    <img src="images/suspect1.jpg" alt="Jan Kowalski">
+                    <h3>Jan Kowalski</h3>
+                    <p>Poszukiwany za oszustwa finansowe. Ostatnio widziany w Warszawie.</p>
+                    <div class="actions">
+                        <button class="btn edit-btn" onclick="editSuspect(this)">Edytuj</button>
+                        <button class="btn delete-btn" onclick="deleteSuspect(this)">Usuń</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/suspect2.jpg" alt="Anna Nowak">
+                    <h3>Anna Nowak</h3>
+                    <p>Oskarżona o przestępczość zorganizowaną. Ostatnio widziana w Berlinie.</p>
+                    <div class="actions">
+                        <button class="btn edit-btn" onclick="editSuspect(this)">Edytuj</button>
+                        <button class="btn delete-btn" onclick="deleteSuspect(this)">Usuń</button>
+                    </div>
+                </div>
+                <!-- Więcej kart dla podejrzanych -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Kontakt: <a href="mailto:interpol@example.com">interpol@example.com</a></p>
+    </footer>
+</body>
+</html>
